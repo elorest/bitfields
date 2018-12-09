@@ -1,6 +1,6 @@
 # Bit Fields for Crystal-Lang
 
-Pure [Crystal](https://crystal-lang.org/) implementation for Bit Fields. Handles reading and writing of bytes. 
+Pure [Crystal](https://crystal-lang.org/) implementation of Bit Fields. Handles encoding/decoding of bytes.
 
 ## Installation
 
