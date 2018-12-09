@@ -31,7 +31,8 @@ crossbit.psi           #=> 342_u16
 crossbit.power         #=> 1_u8
 crossbit.lights        #=> 3_u8
 crossbit.to_slice      #=> Bytes[109, 121, 110, 97, 109, 245]
-crossbit.to_s          #=> "|\e[38;2;255;255;0mlights\e[0m|\e[38;2;0;255;0mpower\e[0m|\e[38;2;0;0;255mpsi\e[0m|\e[38;2;75;0;130mtemp\e[0m|\e[38;2;148;0;211mrpms\e[0m|\n|\e[38;2;255;255;0m11\e[0m|\e[38;2;0;255;0m1\e[0m|\e[38;2;0;0;255m101010110\e[0m|\e[38;2;75;0;130m1101\e[0m|\e[38;2;148;0;211m01100001011011100111100101101101\e[0m|"
+crossbit.to_s          #=>  |lights|power|psi|temp|rpms|
+                       #=>  |11|1|101010110|1101|01100001011011100111100101101101|
 crossbit.power = 0     #=> 0_u8
 crossbit.to_slice      #=> Bytes[109, 121, 110, 97, 109, 245]
 ```
