@@ -1,6 +1,6 @@
-# bitfields
+# Bit Fields for Crystal-Lang
 
-`bitfields` is a pure crystal library to handle bitfields translations similar to C.
+Pure [Crystal](https://crystal-lang.org/) implementation for Bit Fields. Handles reading and writing of bytes. 
 
 ## Installation
 
