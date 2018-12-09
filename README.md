@@ -34,7 +34,7 @@ crossbit.to_slice      #=> Bytes[109, 121, 110, 97, 109, 245]
 crossbit.to_s          #=> |lights|power|psi|temp|rpms|
                        #=> |11|1|101010110|1101|01100001011011100111100101101101|
 crossbit.power = 0     #=> 0_u8
-crossbit.to_slice      #=> Bytes[109, 121, 110, 97, 109, 245]
+crossbit.to_slice      #=> Bytes[109, 121, 110, 97, 109, 213]
 ```
 
 ## Contributing
