@@ -9,7 +9,8 @@ class CrossBit < BitFields
 end
 
 describe Bitfields do
-  crossbit = CrossBit.new(Bytes[109, 121, 110, 97, 109, 245])
+  bytes = Bytes[109, 121, 110, 97, 109, 245]
+  crossbit = CrossBit.new(bytes)
 
   it "should read 32 bits into a UInt32" do
     crossbit.rpms.should eq 1634629997
@@ -34,5 +35,16 @@ describe Bitfields do
   it "should read the next 2 bits to end of byte into UInt8" do
     crossbit.lights.should eq 3
     crossbit.lights.class.should eq UInt8
+  end
+
+  it "should output the same Bytes which were read in" do
+    crossbit.to_slice.should eq bytes 
+  end
+
+  it "should output modified bytes if values are modified" do
+    crossbit.lights = 2
+    crossbit.psi = 349
+    new_bytes = Bytes[109, 121, 110, 97, 221, 181] 
+    crossbit.to_slice.should eq new_bytes
   end
 end
