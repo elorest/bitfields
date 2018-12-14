@@ -52,18 +52,21 @@ end
 
 class CrossBit < BitFields
   bf rpms : UInt32, 32
-  bf temp : UInt8, 4
-  bf psi : UInt16, 9
-  bf power : UInt8, 1
-  bf lights : UInt8, 2
-  bf v1 : UInt16, 16
+  bf temp : UInt8, 4 
+  bf psi : UInt16, 9 
+  bf power : UInt8, 1 
+  bf lights : UInt8, 2 
+  bf v1 : UInt16, 16 
   bf v2 : UInt8, 4
-  bf v3 : UInt8, 4
-  bf v4 : UInt8, 8
+  bf v3 : UInt8, 8 
+  bf v4 : UInt8, 4 
   bf v5 : UInt8, 8
 end
 
-crossbit = CrossBit.new(Bytes[109, 121, 110, 97, 221, 181, 220, 0, 113, 101, 38])
+bytes = Bytes[109, 121, 110, 97, 221, 181, 220, 0, 28, 156, 9]
+crossbit = CrossBit.new(bytes)
+
+# crossbit = CrossBit.new(Bytes[109, 121, 110, 97, 221, 181, 220, 0, 113, 101, 38])
 puts crossbit.rpms
 puts crossbit.temp   # => 13_u8
 puts crossbit.psi    # => 342_u16

@@ -8,57 +8,116 @@ class CrossBit < BitFields
   bf lights : UInt8, 2 
   bf v1 : UInt16, 16 
   bf v2 : UInt8, 4
-  bf v3 : UInt8, 4 
-  bf v4 : UInt8, 8 
+  bf v3 : UInt8, 8 
+  bf v4 : UInt8, 4 
   bf v5 : UInt8, 8
 end
 
-describe Bitfields do
-  bytes = Bytes[109, 121, 110, 97, 109, 245, 57, 50, 56, 51, 52, 55, 56, 57, 50, 51, 56, 52, 55, 50, 57, 51, 56, 55, 50, 57, 51, 56, 52, 55]
-  crossbit = CrossBit.new(bytes)
-
-  it "should read 32 bits into a UInt32" do
-    crossbit.rpms.should eq 1634629997
-    crossbit.rpms.class.should eq UInt32
+describe BitFields do
+  describe "Class" do
+    describe "byte_length" do
+      it "should return 1" do
+        BitFields.byte_len(32, 8).should eq 1
+      end
+      it "should return 2" do
+        BitFields.byte_len(32, 16).should eq 2
+      end
+      it "should return 2" do
+        BitFields.byte_len(32, 12).should eq 2
+      end
+      it "should return 2" do
+        BitFields.byte_len(36, 8).should eq 2
+      end
+      it "should return 2" do
+        BitFields.byte_len(36, 12).should eq 2
+      end
+      it "should return 3" do
+        BitFields.byte_len(36, 16).should eq 3
+      end
+      it "should return 3" do
+        BitFields.byte_len(36, 15).should eq 3
+      end
+      it "should return 3" do
+        BitFields.byte_len(36, 17).should eq 3
+      end
+    end
   end
 
-  it "should read first 4 bits into a UInt8" do
-    crossbit.temp.should eq 13 
-    crossbit.temp.class.should eq UInt8
-  end
+  describe "Instance" do
+    bytes = Bytes[109, 121, 110, 97, 221, 181, 220, 0, 28, 252, 105]
+    crossbit = CrossBit.new(bytes)
 
-  it "should read the next 9 bits from across bytes into a UInt16" do
-    crossbit.psi.should eq 342 
-    crossbit.psi.class.should eq UInt16
-  end
+    it "should read 32 bits into a UInt32" do
+      crossbit.rpms.should eq 1634629997
+      crossbit.rpms.class.should eq UInt32
+    end
 
-  it "should read the next bit into UInt8" do
-    crossbit.power.should eq 1 
-    crossbit.power.class.should eq UInt8
-  end
+    it "should read first 4 bits into a UInt8" do
+      crossbit.temp.should eq 13 
+      crossbit.temp.class.should eq UInt8
+    end
 
-  it "should read the next 2 bits to end of byte into UInt8" do
-    crossbit.lights.should eq 3
-    crossbit.lights.class.should eq UInt8
-  end
+    it "should read the next 9 bits from across bytes into a UInt16" do
+      crossbit.psi.should eq 349 
+      crossbit.psi.class.should eq UInt16
+    end
 
-  it "should output the same Bytes which were read in" do
-    crossbit.to_slice.should eq bytes 
-  end
+    it "should read the next bit into UInt8" do
+      crossbit.power.should eq 1 
+      crossbit.power.class.should eq UInt8
+    end
 
-  it "should output modified bytes if values are modified" do
-    crossbit.lights = 2
-    crossbit.psi = 349
-    crossbit.v1 = 220 
-    crossbit.v2 = 97 
-    crossbit.v3 = 193 
-    crossbit.v5 = 38
-    crossbit.v4 = 105 
-    crossbit.to_s
-    puts crossbit.to_slice
-    new_bytes = Bytes[109, 121, 110, 97, 221, 181] 
-    c2 = CrossBit.new(Bytes[109, 121, 110, 97, 221, 181, 220, 0, 113, 101, 38])
-    puts c2.to_s 
-    crossbit.to_slice.should eq new_bytes
+    it "should read the next 2 bits to end of byte into UInt8" do
+      crossbit.lights.should eq 2
+      crossbit.lights.class.should eq UInt8
+    end
+
+    it "should read v1 correctly" do
+      crossbit.v1.should eq 220 
+    end
+
+    it "should read v2 correctly" do
+      crossbit.v2.should eq 12 
+    end
+
+    it "should read v3 correctly" do
+      crossbit.v3.should eq 193 
+    end
+
+    it "should read v4 correctly" do
+      crossbit.v4.should eq 15 
+    end
+
+    it "should read v5 correctly" do
+      crossbit.v5.should eq 105 
+    end
+
+    it "should output modified bytes if values are modified" do
+      crossbit.lights = 1
+      crossbit.psi = 319
+      crossbit.v1 = 225 
+      crossbit.v2 = 13 
+      crossbit.v3 = 173 
+      crossbit.v4 = 14 
+      crossbit.v5 = 115 
+      new_bytes = Bytes[109, 121, 110, 97, 253, 115, 225, 0, 221, 234, 115]
+      crossbit.to_slice.should eq new_bytes
+    end
+
+    it "should read in new bytes and print out correct values" do
+      c2 = CrossBit.new(crossbit.to_slice)
+
+      crossbit.lights.should eq 1
+      crossbit.psi.should eq 319
+      crossbit.v1.should eq 225 
+      crossbit.v2.should eq 13 
+      crossbit.v3.should eq 173 
+      crossbit.v4.should eq 14 
+      crossbit.v5.should eq 115 
+    end
+
+    it "should return string printout" do
+      crossbit.to_s.should eq "ajsdjfa"
+    end
   end
 end
