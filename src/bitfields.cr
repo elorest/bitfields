@@ -66,9 +66,7 @@ class BitFields
     def to_s
       %titles = %bits = "|"
       {% for name, type, index in FIELDS %}
-        %color = Colorize::ColorRGB.new(*COLORS[{{index}} % COLORS.size].map(&.to_u8))
-        %titles = %(|#{"{{name.id}}".colorize(%color)}#{%titles})
-        %bits = %(|#{sprintf("%0{{LENGTHS[index]}}b", {{name.id}}).colorize(%color)}#{%bits})
+        puts "{{name.id}}: #{sprintf("%0{{LENGTHS[index]}}b", {{name.id}})} -- #{ {{name.id}} }"
       {% end %}       
       [%titles, %bits].join("\n")
     end
