@@ -3,7 +3,6 @@ end
 
 class BitFields
   @bytes : Bytes
-  CONVERSIONS = {"Int32"=>"to_i32", "UInt32"=>"to_u32", "Float64"=>"to_f64", "Int8"=>"to_i8", "Int16"=>"to_i16", "Int64"=>"to_i64", "UInt8"=>"to_u8", "UInt16"=>"to_u16", "UInt64"=>"to_u64", "Float32"=>"to_f32"}
 
   def initialize(b : Bytes)
     @bytes = b.clone
@@ -11,9 +10,6 @@ class BitFields
 
   macro bf(field, length)
     @[BitField(length: "{{field.var}}_{{length}}")]
-    @{{field.var}} = {{length}}
-    # @fields["{{field.var}}"] = [{{field.type.id}}.class, {{length}}]
-
     def {{field.var}}
       range = ranges("{{field.var}}")
       puts range.inspect
@@ -23,13 +19,13 @@ class BitFields
       end
       buffer >>= (range[:sbit] % 8)
       buffer &= (2**{{length}}-1)
-      buffer
+      {{field.type}}.new(buffer)
     end
   end
 
   def fields
     fields = Hash(String, Int32).new
-    {% for ivar in @type.instance_vars %}
+    {% for ivar in @type.methods %}
       {% if ann = ivar.annotation(BitField) %}
         f, l = {{ann[:length]}}.split("_")
         fields[f] = l.to_i
