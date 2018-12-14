@@ -117,7 +117,8 @@ describe BitFields do
     end
 
     it "should return string printout" do
-      crossbit.to_s.should eq "ajsdjfa"
+      str = "rpms -- Binary:01100001011011100111100101101101 Hex:616E796D Decimal:1634629997\ntemp -- Binary:1101 Hex:D Decimal:13\npsi -- Binary:100111111 Hex:13F Decimal:319\npower -- Binary:1 Hex:1 Decimal:1\nlights -- Binary:01 Hex:1 Decimal:1\nv1 -- Binary:0000000011100001 Hex:E1 Decimal:225\nv2 -- Binary:1101 Hex:D Decimal:13\nv3 -- Binary:10101101 Hex:AD Decimal:173\nv4 -- Binary:1110 Hex:E Decimal:14\nv5 -- Binary:01110011 Hex:73 Decimal:115"
+      crossbit.to_s.should eq str 
     end
   end
 end

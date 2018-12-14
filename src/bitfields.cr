@@ -72,7 +72,8 @@ class BitFields
     def to_s
       %str_arr = Array(String).new
       {% for name, type, index in FIELDS %}
-        %str_arr << "{{name.id}} -- Binary:#{sprintf("%0{{LENGTHS[index]}}b", {{name.id}})} Hex:#{sprintf("%0{#{({{LENGTHS[index]}}/8.0).ceil.to_i}x", {{name.id}})} Decimal:#{ {{name.id}} }"
+        # %str_arr << "{{name.id}} -- Binary:#{sprintf("%0{{LENGTHS[index]}}b", {{name.id}})} Hex:#{sprintf("%0{#{({{LENGTHS[index]}}/8.0).ceil.to_i}x", {{name.id}})} Decimal:#{ {{name.id}} }"
+        %str_arr << "{{name.id}} -- Binary:#{sprintf("%0{{LENGTHS[index]}}b", {{name.id}})} Hex:#{sprintf("%X", {{name.id}})} Decimal:#{ {{name.id}} }"
       {% end %}
       %str_arr.join("\n")
     end
