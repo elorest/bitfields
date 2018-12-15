@@ -38,12 +38,10 @@ class BitFields
         %byte_len = self.class.byte_len(%sbit, %bit_len)
         %buffer = 0_u64
         %bytes[%sbit/8, %byte_len].each.with_index do |b, i|
-          # puts "in byte loop {{name.id}}, #{i}"
           %buffer ^= (b.to_u64 << i*8)
         end
         %buffer >>= (%sbit % 8)
         %buffer &= (2**%bit_len-1)
-        puts %buffer.to_s(2), %buffer if "{{name.id}}" == "v3"
         %sbit += %bit_len
         @{{name.id}} = {{type.id}}.new(%buffer)
       {% end %}
@@ -54,7 +52,6 @@ class BitFields
       %byte_index = 0
       %buffer : UInt64 = 0
       %head = 0
-
       {% for name, type, index in FIELDS %}
         %buffer ^= ({{name.id}}.to_u64 << %head)
         %head += {{LENGTHS[index]}}
@@ -69,10 +66,17 @@ class BitFields
       %bytes
     end
 
+    def to_t
+      {
+      {% for name, type, index in FIELDS %}
+        {{name.id}}: {value: @{{name.id}}, length: {{LENGTHS[index]}} },
+      {% end %}
+      }
+    end
+
     def to_s
       %str_arr = Array(String).new
       {% for name, type, index in FIELDS %}
-        # %str_arr << "{{name.id}} -- Binary:#{sprintf("%0{{LENGTHS[index]}}b", {{name.id}})} Hex:#{sprintf("%0{#{({{LENGTHS[index]}}/8.0).ceil.to_i}x", {{name.id}})} Decimal:#{ {{name.id}} }"
         %str_arr << "{{name.id}} -- Binary:#{sprintf("%0{{LENGTHS[index]}}b", {{name.id}})} Hex:#{sprintf("%X", {{name.id}})} Decimal:#{ {{name.id}} }"
       {% end %}
       %str_arr.join("\n")

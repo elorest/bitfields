@@ -120,5 +120,11 @@ describe BitFields do
       str = "rpms -- Binary:01100001011011100111100101101101 Hex:616E796D Decimal:1634629997\ntemp -- Binary:1101 Hex:D Decimal:13\npsi -- Binary:100111111 Hex:13F Decimal:319\npower -- Binary:1 Hex:1 Decimal:1\nlights -- Binary:01 Hex:1 Decimal:1\nv1 -- Binary:0000000011100001 Hex:E1 Decimal:225\nv2 -- Binary:1101 Hex:D Decimal:13\nv3 -- Binary:10101101 Hex:AD Decimal:173\nv4 -- Binary:1110 Hex:E Decimal:14\nv5 -- Binary:01110011 Hex:73 Decimal:115"
       crossbit.to_s.should eq str 
     end
+
+    it "should return tuple" do
+      t =  {rpms: {value: 1634629997_u32, length: 32}, temp: {value: 13_u8, length: 4}, psi: {value: 319_u16, length: 9}, power: {value: 1_u8, length: 1}, lights: {value: 1_u8, length: 2}, v1: {value: 225_u16, length: 16}, v2: {value: 13_u8, length: 4}, v3: {value: 173_u8, length: 8}, v4: {value: 14_u8, length: 4}, v5: {value: 115_u8, length: 8}}
+      crossbit.to_t.should eq t 
+      #{name: {value: "isaac", length: 5}}
+    end
   end
 end
