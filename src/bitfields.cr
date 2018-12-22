@@ -27,7 +27,11 @@ class BitFields
     BYTE_COUNT = (BIT_COUNT/8.0).ceil.to_i
 
     {% for name, type, index in FIELDS %}
-      property {{name.id}} : {{type.id}}
+      getter {{name.id}} : {{type.id}}
+
+      def {{name.id}}=(v : {{type.id}})
+        @{{name.id}} = (v & {{2**LENGTHS[index]-1}})
+      end
     {% end %}
 
     def initialize(bytes : Bytes)
