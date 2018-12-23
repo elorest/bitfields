@@ -104,6 +104,12 @@ describe BitFields do
       crossbit.to_slice.should eq new_bytes
     end
 
+    it "should truncate bits to the correct size instead of overflowing." do
+      crossbit.v4 = 254 
+      new_bytes = Bytes[109, 121, 110, 97, 253, 115, 225, 0, 221, 234, 115]
+      crossbit.to_slice.should eq new_bytes
+    end
+
     it "should read in new bytes and print out correct values" do
       c2 = CrossBit.new(crossbit.to_slice)
 
