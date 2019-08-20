@@ -1,3 +1,3 @@
 class Bitfields
-  VERSION = "0.2.2"
+  VERSION = "0.30.0"
 end

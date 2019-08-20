@@ -1,9 +1,9 @@
 name: bitfields
-version: 0.2.2
+version: 0.30.0
 
 authors:
   - Isaac Sloan <isaac@isaacsloan.com>
 
-crystal: 0.27.0
+crystal: 0.30.1
 
 license: MIT
