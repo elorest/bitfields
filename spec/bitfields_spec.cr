@@ -110,6 +110,13 @@ describe BitFields do
       crossbit.to_slice.should eq new_bytes
     end
 
+    it "should set all 32 bits to the correct size instead of overflowing." do
+      c2 = CrossBit.new(crossbit.to_slice)
+      c2.rpms = 4294967295 
+      new_bytes = Bytes[255, 255, 255, 255, 253, 115, 225, 0, 221, 234, 115]
+      c2.to_slice.should eq new_bytes
+    end
+
     it "should read in new bytes and print out correct values" do
       c2 = CrossBit.new(crossbit.to_slice)
 

@@ -30,7 +30,7 @@ class BitFields
       getter {{name.id}} : {{type.id}}
 
       def {{name.id}}=(v : {{type.id}})
-        @{{name.id}} = (v & {{2**LENGTHS[index]-1}})
+        @{{name.id}} = (v & {{2u64**LENGTHS[index]-1}})
       end
     {% end %}
 
