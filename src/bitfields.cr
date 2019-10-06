@@ -41,7 +41,7 @@ class BitFields
         %bit_len = LENGTHS[{{index}}]
         %byte_len = self.class.byte_len(%sbit, %bit_len)
         %buffer = 0_u64
-        %bytes[%sbit/8, %byte_len].each.with_index do |b, i|
+        %bytes[%sbit//8, %byte_len].each.with_index do |b, i|
           %buffer ^= (b.to_u64 << i*8)
         end
         %buffer >>= (%sbit % 8)
