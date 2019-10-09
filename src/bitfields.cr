@@ -45,7 +45,7 @@ class BitFields
           %buffer ^= (b.to_u64 << i*8)
         end
         %buffer >>= (%sbit % 8)
-        %buffer &= (2**%bit_len-1)
+        %buffer &= (2u64**%bit_len-1)
         %sbit += %bit_len
         @{{name.id}} = {{type.id}}.new(%buffer)
       {% end %}
