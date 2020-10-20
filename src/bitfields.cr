@@ -60,7 +60,7 @@ class BitFields
         %buffer ^= ({{name.id}}.to_u64 << %head)
         %head += {{LENGTHS[index]}}
         while %head > 8
-          %bytes[%byte_index] = %buffer.to_u8
+          %bytes[%byte_index] = %buffer.to_u8!
           %buffer >>= 8
           %byte_index += 1
           %head -= 8
